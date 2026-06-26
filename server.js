@@ -2,12 +2,18 @@ const express = require("express");
 
 const app = express();
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
-  res.send("Graphic Room Studio WhatsApp Bot is Live 🚀");
+  res.status(200).send("Graphic Room Studio WhatsApp Bot is Live 🚀");
 });
 
-const PORT = process.env.PORT || 3000;
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
