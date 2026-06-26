@@ -31,8 +31,7 @@ app.post("/webhook", async (req, res) => {
     const body = req.body;
 
     if (body.object) {
-      const message =
-        body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+      const message = body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
       if (message) {
         const from = message.from;
@@ -41,17 +40,16 @@ app.post("/webhook", async (req, res) => {
           messaging_product: "whatsapp",
           to: from,
           text: {
-            body:
-              "👋 Welcome to Graphic Room Studio!\n\nThank you for contacting us.\n\nHow can we help you today?"
+            body: "👋 Welcome to Graphic Room Studio!\n\nThank you for contacting us.\n\nHow can we help you today?"
           }
         };
 
         await fetch(
-          https://graph.facebook.com/v23.0/${PHONE_NUMBER_ID}/messages,
+          `https://graph.facebook.com/v23.0/${PHONE_NUMBER_ID}/messages`,
           {
             method: "POST",
             headers: {
-              Authorization: Bearer ${ACCESS_TOKEN},
+              Authorization: `Bearer ${ACCESS_TOKEN}`,
               "Content-Type": "application/json"
             },
             body: JSON.stringify(reply)
@@ -62,16 +60,16 @@ app.post("/webhook", async (req, res) => {
       return res.sendStatus(200);
     }
 
-    res.sendStatus(404);
+    return res.sendStatus(404);
 
   } catch (err) {
     console.error(err);
-    res.sendStatus(500);
+    return res.sendStatus(500);
   }
 });
 
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(Server running on port ${PORT});
+  console.log(`Server running on port ${PORT}`);
 });
