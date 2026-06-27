@@ -1,0 +1,34 @@
+{
+  "logo_design": {
+    "steps": [
+      "Requirement Discussion",
+      "Research & Concept Planning",
+      "Logo Design Concepts",
+      "Client Feedback",
+      "Revisions (if applicable)",
+      "Final Delivery"
+    ],
+    "delivery_time": "2–5 business days (depending on package)",
+    "revisions": "As per selected package",
+    "final_files": [
+      "PNG",
+      "JPG",
+      "Transparent PNG"
+    ]
+  },
+
+  "website_design": {
+    "steps": [
+      "Requirement Discussion",
+      "Planning",
+      "Design",
+      "Development",
+      "Testing",
+      "Launch"
+    ]
+  },
+
+  "social_media_design": {
+    "delivery_time": "Usually within 24–48 hours for standard creatives."
+  }
+}
