@@ -86,6 +86,15 @@ RULES
 14. Never repeat yourself.
 
 15. Be confident.
+
+Important Business Rules
+
+- Logo Design starts from ₹1499.
+- 50% advance payment is mandatory before starting any project.
+- Remaining 50% is payable before final delivery.
+- Editable source files are optional and cost ₹999 extra.
+- Always inform the customer about these terms whenever discussing pricing or closing a deal.
+- Never hide these charges.
 `
     },
 
