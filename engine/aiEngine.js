@@ -9,7 +9,7 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-async function getReply(userId, userMessage) {
+async function getReply(userId, userMessage, imageId = null) {
 
   // Save user message
   memory.addUserMessage(userId, userMessage);
@@ -25,10 +25,52 @@ async function getReply(userId, userMessage) {
   const prompt = buildPrompt(brain, conversation);
 
   // Ask GPT
-  const response = await client.responses.create({
-    model: "gpt-5.5",
-    input: prompt
+  const input = [];
+
+input.push({
+  role: "system",
+  content: [
+    {
+      type: "input_text",
+      text: prompt
+    }
+  ]
+});
+
+if (imageId) {
+
+  input.push({
+    role: "user",
+    content: [
+      {
+        type: "input_text",
+        text: userMessage
+      },
+      {
+        type: "input_image",
+        image_url: imageId
+      }
+    ]
   });
+
+} else {
+
+  input.push({
+    role: "user",
+    content: [
+      {
+        type: "input_text",
+        text: userMessage
+      }
+    ]
+  });
+
+}
+
+const response = await client.responses.create({
+  model: "gpt-5.5",
+  input
+});
 
   const reply = response.output_text;
 
