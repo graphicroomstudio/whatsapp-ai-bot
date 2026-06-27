@@ -52,7 +52,11 @@ ${JSON.stringify(brain.process, null, 2)}
 FAQ
 
 ${JSON.stringify(brain.faq, null, 2)}
+==================================================
 
+WEBSITE
+
+${JSON.stringify(brain.website, null, 2)}
 ==================================================
 
 RULES
