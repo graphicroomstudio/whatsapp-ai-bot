@@ -1,0 +1,53 @@
+{
+  "portfolio": {
+    "website": "https://graphicroom.studio/portfolio",
+
+    "instagram": "https://instagram.com/graphicroom.studio",
+
+    "behance": "",
+
+    "dribbble": "",
+
+    "logo_portfolio": [
+      "Modern Logo Collection",
+      "Luxury Brand Logos",
+      "Restaurant Logos",
+      "Salon Logos",
+      "Automobile Logos",
+      "Real Estate Logos",
+      "Jewellery Logos",
+      "Construction Logos",
+      "Medical Logos"
+    ],
+
+    "social_media_portfolio": [
+      "Instagram Posts",
+      "Festival Posts",
+      "Advertisement Creatives",
+      "Product Posts",
+      "Carousel Designs",
+      "Reels Cover Designs"
+    ],
+
+    "website_portfolio": [
+      "Business Websites",
+      "Portfolio Websites",
+      "Landing Pages"
+    ],
+
+    "print_portfolio": [
+      "Visiting Cards",
+      "Brochures",
+      "Flyers",
+      "Menu Cards",
+      "Bill Books"
+    ],
+
+    "packaging_portfolio": [
+      "Food Packaging",
+      "Cosmetic Packaging",
+      "Product Labels",
+      "Box Designs"
+    ]
+  }
+}
