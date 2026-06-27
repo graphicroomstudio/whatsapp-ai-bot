@@ -87,15 +87,30 @@ app.post("/webhook", async (req, res) => {
 
         console.log("📩 Message From:", from);
         console.log("💬 Text:", message.text?.body);
+        const userMessage = message.text?.body || "";
 
-        const reply = {
-          messaging_product: "whatsapp",
-          to: from,
-          text: {
-            body:
-              "👋 Welcome to Graphic Room Studio!\n\nThank you for contacting us.\n\nHow can we help you today?"
-          }
-        };
+       
+const aiResponse = await client.responses.create({
+  model: "gpt-5.5",
+  input: [
+    {
+      role: "system",
+      content: SYSTEM_PROMPT
+    },
+    {
+      role: "user",
+      content: userMessage
+    }
+  ]
+});
+
+const reply = {
+  messaging_product: "whatsapp",
+  to: from,
+  text: {
+    body: aiResponse.output_text
+  }
+};
 
         const response = await fetch(
           `https://graph.facebook.com/v23.0/${PHONE_NUMBER_ID}/messages`,
