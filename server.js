@@ -37,12 +37,13 @@ app.post("/webhook", async (req, res) => {
     }
 
     const from = message.from;
-    const userMessage = message.text.body;
-
+    const userMessage = message.text?.body || "";
+const imageId = message.image?.id || null;
+    
     console.log("📩", from, ":", userMessage);
 
-    const assistantReply = await getReply(from, userMessage);
-
+    const assistantReply = await getReply(from, userMessage, imageId);
+    
     await fetch(
       `https://graph.facebook.com/v23.0/${PHONE_NUMBER_ID}/messages`,
       {
