@@ -1,0 +1,36 @@
+{
+  "services": [
+    {
+      "name": "Logo Design",
+      "starting_price": "₹1499",
+      "description": "Professional custom logo design for startups and businesses.",
+      "includes": [
+        "Custom Logo",
+        "High Resolution Files",
+        "PNG",
+        "JPG",
+        "Transparent Background"
+      ]
+    },
+    {
+      "name": "Brand Identity",
+      "description": "Complete branding including logo, colors, typography and brand guidelines."
+    },
+    {
+      "name": "Social Media Design",
+      "description": "Instagram posts, Facebook posts, stories, reels covers, banners and ad creatives."
+    },
+    {
+      "name": "Print Design",
+      "description": "Visiting cards, brochures, flyers, letterheads, bill books, menu cards and other print materials."
+    },
+    {
+      "name": "Packaging Design",
+      "description": "Professional packaging and label designs for products."
+    },
+    {
+      "name": "Website Design",
+      "description": "Business websites, landing pages and portfolio websites."
+    }
+  ]
+}
