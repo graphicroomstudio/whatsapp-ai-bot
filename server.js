@@ -42,6 +42,23 @@ app.post("/webhook", async (req, res) => {
 let userMessage = "";
 
 const imageId = message.image?.id || null;
+    let imageUrl = null;
+
+if (imageId) {
+
+    const mediaResponse = await fetch(
+        `https://graph.facebook.com/v23.0/${imageId}`,
+        {
+            headers: {
+                Authorization: `Bearer ${ACCESS_TOKEN}`
+            }
+        }
+    );
+
+    const mediaData = await mediaResponse.json();
+
+    imageUrl = mediaData.url || null;
+}
 
 switch (message.type) {
 
@@ -71,8 +88,7 @@ switch (message.type) {
     
     console.log("📩", from, ":", userMessage);
 
-    const assistantReply = await getReply(from, userMessage, imageId);
-    
+const assistantReply = await getReply(from, userMessage, imageUrl);    
     await fetch(
       `https://graph.facebook.com/v23.0/${PHONE_NUMBER_ID}/messages`,
       {
