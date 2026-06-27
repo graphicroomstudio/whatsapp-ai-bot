@@ -33,13 +33,41 @@ app.post("/webhook", async (req, res) => {
     const message =
       req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
-    if (!message || !message.text?.body) {
-      return res.sendStatus(200);
-    }
+    if (!message) {
+  return res.sendStatus(200);
+}
 
     const from = message.from;
-    const userMessage = message.text?.body || "";
+
+let userMessage = "";
+
 const imageId = message.image?.id || null;
+
+switch (message.type) {
+
+  case "text":
+    userMessage = message.text.body;
+    break;
+
+  case "image":
+    userMessage = "The customer has sent an image. Acknowledge the image and ask how Graphic Room Studio can help regarding it.";
+    break;
+
+  case "video":
+    userMessage = "The customer has sent a video. Acknowledge the video and ask what help they need.";
+    break;
+
+  case "document":
+    userMessage = "The customer has shared a document. Acknowledge it and ask what they want Graphic Room Studio to do.";
+    break;
+
+  case "audio":
+    userMessage = "The customer has sent a voice message. Acknowledge it politely and ask them to briefly explain their requirement if needed.";
+    break;
+
+  default:
+    userMessage = `The customer has sent a ${message.type}. Politely acknowledge it and continue the conversation naturally.`;
+}
     
     console.log("📩", from, ":", userMessage);
 
