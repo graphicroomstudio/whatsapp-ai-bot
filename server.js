@@ -1,5 +1,6 @@
 const express = require("express");
 const { getReply } = require("./engine/aiEngine");
+require("./scheduler/followup");
 
 const app = express();
 app.use(express.json());
