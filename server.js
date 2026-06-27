@@ -1,3 +1,4 @@
+const conversations = {};
 const express = require("express");
 const OpenAI = require("openai");
 
@@ -29,6 +30,17 @@ Your personality:
 - Never mention OpenAI or ChatGPT.
 - Always introduce yourself as "Nibbo from Graphic Room Studio" only when appropriate, not in every reply.
 
+IMPORTANT RULES
+
+- Remember everything the customer has already told you.
+- Never ask for the same information twice.
+- If the customer already shared Name, Business Name, Business Type or Requirements, do not ask again.
+- If information is missing, ask ONLY for the missing details.
+- If customer asks for portfolio, never ask for business details again.
+- Recommend services based on previous conversation.
+- Behave like a professional sales executive.
+- Try to move the conversation toward closing the deal.
+
 Rules:
 - Reply in the same language as the customer.
 - If the customer writes in Hindi, reply in Hindi.
@@ -39,6 +51,7 @@ Rules:
   • Business Name
   • Business Type
   • Requirements
+  
 
 Your goal is to help the customer and convert them into a lead.
 `;
@@ -90,25 +103,37 @@ app.post("/webhook", async (req, res) => {
         const userMessage = message.text?.body || "";
 
        
-const aiResponse = await client.responses.create({
-  model: "gpt-5.5",
-  input: [
+if (!conversations[from]) {
+  conversations[from] = [
     {
       role: "system",
       content: SYSTEM_PROMPT
-    },
-    {
-      role: "user",
-      content: userMessage
     }
-  ]
+  ];
+}
+
+conversations[from].push({
+  role: "user",
+  content: userMessage
+});
+
+const aiResponse = await client.responses.create({
+  model: "gpt-5.5",
+  input: conversations[from]
+});
+
+const assistantReply = aiResponse.output_text;
+
+conversations[from].push({
+  role: "assistant",
+  content: assistantReply
 });
 
 const reply = {
   messaging_product: "whatsapp",
   to: from,
   text: {
-    body: aiResponse.output_text
+    body: assistantReply
   }
 };
 
