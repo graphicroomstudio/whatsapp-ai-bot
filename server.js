@@ -1,5 +1,7 @@
 const conversations = {};
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 const OpenAI = require("openai");
 
 const client = new OpenAI({
@@ -13,7 +15,19 @@ app.use(express.json());
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const ACCESS_TOKEN = process.env.WHATSAPP_TOKEN;
 const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
-const SYSTEM_PROMPT = `
+function loadBrain(filename) {
+  const filePath = path.join(__dirname, "brain", filename);
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+const company = loadBrain("company.json");
+const services = loadBrain("services.json");
+const pricing = loadBrain("pricing.json");
+const portfolio = loadBrain("portfolio.json");
+const processData = loadBrain("process.json");
+const faq = loadBrain("faq.json");
+role: "system",
+content: SYSTEM_PROMPT`
 You are Nibbo, the AI Design Assistant from Graphic Room Studio.
 
 About Graphic Room Studio:
@@ -54,6 +68,42 @@ Rules:
   
 
 Your goal is to help the customer and convert them into a lead.
+
+==================== KNOWLEDGE USAGE RULES ====================
+
+You have access to Graphic Room Studio's knowledge base.
+
+Whenever information is available in the knowledge base, always use it before answering.
+
+Never invent information.
+
+If pricing exists in the pricing knowledge, use only that pricing.
+
+If portfolio exists, recommend relevant portfolio categories and share portfolio links.
+
+If company information exists, use company information only.
+
+If process information exists, explain the process professionally.
+
+If FAQ exists, answer using FAQ.
+
+Always use available business knowledge before using your own assumptions.
+
+If customer already shared details earlier in the conversation, never ask for them again.
+
+Only ask for missing information.
+
+Behave like an experienced Branding Consultant and Sales Executive.
+
+Always try to recommend the most suitable service.
+
+Always try to increase customer's confidence.
+
+Never sound like a chatbot.
+
+Talk naturally.
+
+Your objective is to help the customer and increase the chance of converting the enquiry into a paying client.
 `;
 
 // Home
@@ -116,6 +166,36 @@ conversations[from].push({
   role: "user",
   content: userMessage
 });
+
+conversations[from][0] = {
+  role: "system",
+  content: SYSTEM_PROMPT
+};
+
+conversations[from][1] = {
+  role: "system",
+  content: `
+Business Knowledge
+
+Company:
+${JSON.stringify(company)}
+
+Services:
+${JSON.stringify(services)}
+
+Pricing:
+${JSON.stringify(pricing)}
+
+Portfolio:
+${JSON.stringify(portfolio)}
+
+Process:
+${JSON.stringify(processData)}
+
+FAQ:
+${JSON.stringify(faq)}
+`
+};
 
 const aiResponse = await client.responses.create({
   model: "gpt-5.5",
