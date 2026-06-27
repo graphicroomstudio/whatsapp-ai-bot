@@ -1,0 +1,36 @@
+{
+  "faqs": [
+    {
+      "question": "What services do you offer?",
+      "answer": "We offer Logo Design, Brand Identity, Social Media Design, Website Design, Print Design, Packaging Design and other creative branding services."
+    },
+    {
+      "question": "What is the starting price for logo design?",
+      "answer": "Our Logo Design service starts from ₹1499. The final price depends on the project requirements."
+    },
+    {
+      "question": "How long does it take?",
+      "answer": "Logo projects are usually completed within 2–5 business days depending on the selected package and revisions."
+    },
+    {
+      "question": "Do you provide source files?",
+      "answer": "Yes. Source files are provided according to the selected package."
+    },
+    {
+      "question": "How many revisions are included?",
+      "answer": "The number of revisions depends on the selected package."
+    },
+    {
+      "question": "Do you design websites?",
+      "answer": "Yes. We design business websites, landing pages and portfolio websites."
+    },
+    {
+      "question": "How do I place an order?",
+      "answer": "Simply share your requirements and we'll discuss the best solution before starting the project."
+    },
+    {
+      "question": "What payment methods do you accept?",
+      "answer": "Payment details will be shared by our team before the project begins."
+    }
+  ]
+}
