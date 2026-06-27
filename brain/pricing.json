@@ -1,0 +1,31 @@
+{
+  "currency": "INR",
+  "pricing_note": "Final price depends on project requirements. Custom quotes are available for larger projects.",
+
+  "services": {
+    "logo_design": {
+      "starting_price": "₹1499",
+      "note": "Price may increase depending on complexity and revisions."
+    },
+
+    "brand_identity": {
+      "starting_price": "₹9999"
+    },
+
+    "social_media_design": {
+      "starting_price": "₹1999"
+    },
+
+    "website_design": {
+      "starting_price": "₹9999"
+    },
+
+    "print_design": {
+      "starting_price": "₹499"
+    },
+
+    "packaging_design": {
+      "starting_price": "₹1999"
+    }
+  }
+}
