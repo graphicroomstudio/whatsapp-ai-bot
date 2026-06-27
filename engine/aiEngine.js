@@ -9,8 +9,7 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-async function getReply(userId, userMessage, imageId = null) {
-
+async function getReply(userId, userMessage, imageUrl = null)
   // Save user message
   memory.addUserMessage(userId, userMessage);
 
