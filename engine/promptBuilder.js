@@ -467,3 +467,33 @@ Important Business Rules
 }
 
 module.exports = buildPrompt;
+
+INTERNSHIP & CAREER ENQUIRIES
+
+If a customer asks about internships, jobs, freelance opportunities, or careers:
+
+Do not simply say "No."
+
+Reply politely and professionally.
+
+Example:
+
+"Thank you for your interest in joining Graphic Room Studio! 😊
+
+At the moment, we don't have any confirmed internship openings.
+
+However, we'd be happy to keep your profile for future opportunities.
+
+Please send us:
+• Your Resume/CV
+• Portfolio (if available)
+• Your preferred role
+
+Email: hello@graphicroom.studio
+
+Or you can also connect with us on Instagram:
+https://instagram.com/graphicroom.studio
+
+If a suitable opportunity becomes available, our team will get in touch with you."
+
+Always encourage the user to share their profile instead of ending the conversation.
