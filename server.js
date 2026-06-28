@@ -1,6 +1,7 @@
+require("dotenv").config();
+
 const express = require("express");
 const { getReply } = require("./engine/aiEngine");
-require("./scheduler/followup");
 
 const app = express();
 app.use(express.json());
@@ -11,11 +12,12 @@ const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
 
 // Home
 app.get("/", (req, res) => {
-  res.send("Graphic Room Studio WhatsApp AI Bot is Live 🚀");
+  res.send("Graphic Room Studio AI Bot V2 🚀");
 });
 
-// Webhook Verification
+// Meta Verification
 app.get("/webhook", (req, res) => {
+
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
@@ -25,75 +27,32 @@ app.get("/webhook", (req, res) => {
   }
 
   return res.sendStatus(403);
+
 });
 
-// Receive Messages
+// WhatsApp Messages
 app.post("/webhook", async (req, res) => {
+
   try {
+
     const message =
       req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
     if (!message) {
-  return res.sendStatus(200);
-}
+      return res.sendStatus(200);
+    }
+
+    if (message.type !== "text") {
+      return res.sendStatus(200);
+    }
 
     const from = message.from;
+    const userMessage = message.text.body;
 
-let userMessage = "";
+    console.log(`📩 ${from}: ${userMessage}`);
 
-const imageId = message.image?.id || null;
-    let imageUrl = null;
+    const assistantReply = await getReply(from, userMessage);
 
-if (imageId) {
-
-    const mediaResponse = await fetch(
-        `https://graph.facebook.com/v23.0/${imageId}`,
-        {
-            headers: {
-                Authorization: `Bearer ${ACCESS_TOKEN}`
-            }
-        }
-    );
-
-    const mediaData = await mediaResponse.json();
-
-    imageUrl = mediaData.url || null;
-}
-
-switch (message.type) {
-
-  case "text":
-    userMessage = message.text.body;
-    break;
-
-  case "image":
-    userMessage = "The customer has sent an image. Acknowledge the image and ask how Graphic Room Studio can help regarding it.";
-    break;
-
-  case "video":
-    userMessage = "The customer has sent a video. Acknowledge the video and ask what help they need.";
-    break;
-
-  case "document":
-    userMessage = "The customer has shared a document. Acknowledge it and ask what they want Graphic Room Studio to do.";
-    break;
-
-  case "audio":
-    userMessage = "The customer has sent a voice message. Acknowledge it politely and ask them to briefly explain their requirement if needed.";
-    break;
-
-  default:
-    userMessage = `The customer has sent a ${message.type}. Politely acknowledge it and continue the conversation naturally.`;
-}
-    
-    console.log("📩", from, ":", userMessage);
-
-const assistantReply = await getReply(from, userMessage);
-    if (!assistantReply || assistantReply.trim() === "") {
-  console.error("GPT returned an empty reply.");
-  return res.sendStatus(200);
-}
-    
     await fetch(
       `https://graph.facebook.com/v23.0/${PHONE_NUMBER_ID}/messages`,
       {
@@ -121,11 +80,13 @@ const assistantReply = await getReply(from, userMessage);
     console.error(err);
 
     return res.sendStatus(500);
+
   }
+
 });
 
 const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server Running On Port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server Running On ${PORT}`);
 });
