@@ -88,8 +88,8 @@ switch (message.type) {
     
     console.log("📩", from, ":", userMessage);
 
-const assistantReply = await getReply(from, userMessage, imageUrl);  
-if (!assistantReply || assistantReply.trim() === "") {
+const assistantReply = await getReply(from, userMessage);
+    if (!assistantReply || assistantReply.trim() === "") {
   console.error("GPT returned an empty reply.");
   return res.sendStatus(200);
 }
