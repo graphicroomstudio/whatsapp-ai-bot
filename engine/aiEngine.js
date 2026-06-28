@@ -9,7 +9,8 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-async function getReply(userId, userMessage, imageUrl = null)
+async function getReply(userId, userMessage, imageUrl = null) {
+
   // Save user message
   memory.addUserMessage(userId, userMessage);
 
@@ -17,66 +18,69 @@ async function getReply(userId, userMessage, imageUrl = null)
   const brain = loadAllBrain();
   brain.website = await loadWebsite();
 
-  // Load conversation
+  // Load previous conversation
   const conversation = memory.getConversation(userId);
 
-  // Build final prompt
+  // Build system prompt
   const prompt = buildPrompt(brain, conversation);
 
-  // Ask GPT
   const input = [];
 
-input.push({
-  role: "system",
-  content: [
-    {
-      type: "input_text",
-      text: prompt
-    }
-  ]
-});
-
-if (imageId) {
-
+  // System Prompt
   input.push({
-    role: "user",
+    role: "system",
     content: [
       {
         type: "input_text",
-        text: userMessage
-      },
-      {
-        type: "input_image",
-        image_url: imageId
+        text: prompt
       }
     ]
   });
 
-} else {
+  // User Message
+  if (imageUrl) {
 
-  input.push({
-    role: "user",
-    content: [
-      {
-        type: "input_text",
-        text: userMessage
-      }
-    ]
+    input.push({
+      role: "user",
+      content: [
+        {
+          type: "input_text",
+          text: userMessage || "Customer sent an image."
+        },
+        {
+          type: "input_image",
+          image_url: imageUrl
+        }
+      ]
+    });
+
+  } else {
+
+    input.push({
+      role: "user",
+      content: [
+        {
+          type: "input_text",
+          text: userMessage
+        }
+      ]
+    });
+
+  }
+
+  // Ask GPT
+  const response = await client.responses.create({
+    model: "gpt-5.5",
+    input
   });
-
-}
-
-const response = await client.responses.create({
-  model: "gpt-5.5",
-  input
-});
 
   const reply = response.output_text;
 
-  // Save assistant reply
+  // Save AI reply
   memory.addAssistantMessage(userId, reply);
 
   return reply;
+
 }
 
 module.exports = {
