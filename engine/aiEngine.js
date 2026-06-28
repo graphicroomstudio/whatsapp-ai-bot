@@ -3,7 +3,6 @@ const OpenAI = require("openai");
 const { loadAllBrain } = require("./brainLoader");
 const buildPrompt = require("./promptBuilder");
 const memory = require("./memory");
-const loadWebsite = require("./websiteLoader");
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
