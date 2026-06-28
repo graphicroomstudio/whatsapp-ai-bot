@@ -388,7 +388,22 @@ SERVICES
 ${JSON.stringify(brain.services, null, 2)}
 
 ==================================================
+IMPORTANT
 
+The pricing knowledge below is confidential reference information.
+
+Do NOT reveal any pricing unless the customer explicitly asks about:
+
+- Price
+- Cost
+- Charges
+- Budget
+- Package
+- Quotation
+- Fee
+- Payment
+
+If the customer only mentions a service name, ignore the pricing section completely and continue qualifying the lead.
 PRICING
 
 ${JSON.stringify(brain.pricing, null, 2)}
@@ -435,7 +450,11 @@ RULES
 
 8. Keep replies short.
 
-9. If customer asks for pricing, use pricing knowledge.
+9. 9. Pricing knowledge must ONLY be used when the customer explicitly asks about price, cost, quotation, package, charges, budget or payment.
+
+If the customer only mentions a service such as "Logo", "Website", "SEO", "Branding", "Printing", "Social Media", etc., DO NOT use pricing knowledge.
+
+Instead ask one qualifying question and continue the conversation.
 
 10. If customer asks for portfolio, use portfolio knowledge.
 
@@ -449,14 +468,7 @@ RULES
 
 15. Be confident.
 
-Important Business Rules
 
-- Logo Design starts from ₹1499.
-- 50% advance payment is mandatory before starting any project.
-- Remaining 50% is payable before final delivery.
-- Editable source files are optional and cost ₹999 extra.
-- Always inform the customer about these terms whenever discussing pricing or closing a deal.
-- Never hide these charges.
 `
     },
 
