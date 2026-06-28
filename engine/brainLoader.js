@@ -1,30 +1,27 @@
 const fs = require("fs");
 const path = require("path");
 
-function loadBrain(fileName) {
-  const filePath = path.join(__dirname, "..", "brain", fileName);
-
+function load(file) {
   try {
+    const filePath = path.join(__dirname, "..", "brain", file);
     return JSON.parse(fs.readFileSync(filePath, "utf8"));
   } catch (err) {
-    console.error(`❌ Error loading ${fileName}`);
-    console.error(err);
+    console.error("Error loading:", file);
     return {};
   }
 }
 
 function loadAllBrain() {
   return {
-    company: loadBrain("company.json"),
-    services: loadBrain("services.json"),
-    pricing: loadBrain("pricing.json"),
-    portfolio: loadBrain("portfolio.json"),
-    process: loadBrain("process.json"),
-    faq: loadBrain("faq.json")
+    company: load("company.json"),
+    services: load("services.json"),
+    pricing: load("pricing.json"),
+    portfolio: load("portfolio.json"),
+    process: load("process.json"),
+    faq: load("faq.json")
   };
 }
 
 module.exports = {
-  loadBrain,
   loadAllBrain
 };
