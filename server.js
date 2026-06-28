@@ -88,7 +88,12 @@ switch (message.type) {
     
     console.log("📩", from, ":", userMessage);
 
-const assistantReply = await getReply(from, userMessage, imageUrl);    
+const assistantReply = await getReply(from, userMessage, imageUrl);  
+if (!assistantReply || assistantReply.trim() === "") {
+  console.error("GPT returned an empty reply.");
+  return res.sendStatus(200);
+}
+    
     await fetch(
       `https://graph.facebook.com/v23.0/${PHONE_NUMBER_ID}/messages`,
       {
