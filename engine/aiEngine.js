@@ -15,7 +15,6 @@ async function getReply(userId, userMessage, imageUrl = null) {
 
   // Load business knowledge
   const brain = loadAllBrain();
-  brain.website = await loadWebsite();
 
   // Load previous conversation
   const conversation = memory.getConversation(userId);
