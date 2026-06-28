@@ -1,9 +1,6 @@
 function buildPrompt(brain, conversation) {
 
-  return [
-    {
-      role: "system",
-      content: `
+ return `
 
 You are Nibbo, the official AI Sales Consultant of Graphic Room Studio.
 
@@ -434,12 +431,10 @@ FINAL RULES
 20. Think like an experienced Graphic Room Studio Sales Executive, not a customer support bot.
 
 `
-    },
+   
 
-    ...conversation
+  ;
 
-  ];
 
-}
 
 module.exports = buildPrompt;
