@@ -4,9 +4,6 @@ const { loadAllBrain } = require("./brainLoader");
 const buildPrompt = require("./promptBuilder");
 const memory = require("./memory");
 
-console.log("MEMORY EXPORT:", memory);
-console.log("TYPE:", typeof memory.addUserMessage);
-
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
@@ -16,18 +13,18 @@ async function getReply(userId, userMessage, imageUrl = null) {
   // Save user message
   memory.addUserMessage(userId, userMessage);
 
-  // Load business knowledge
+  // Load business data
   const brain = loadAllBrain();
 
-  // Load previous conversation
+  // Conversation history
   const conversation = memory.getConversation(userId);
 
-  // Build system prompt
-  const prompt = buildPrompt(brain, conversation);
+  // System prompt
+  const prompt = buildPrompt(brain);
 
   const input = [];
 
-  // System Prompt
+  // System message
   input.push({
     role: "system",
     content: [
@@ -38,7 +35,20 @@ async function getReply(userId, userMessage, imageUrl = null) {
     ]
   });
 
-  // User Message
+  // Previous conversation
+  conversation.forEach(msg => {
+    input.push({
+      role: msg.role,
+      content: [
+        {
+          type: "input_text",
+          text: msg.content
+        }
+      ]
+    });
+  });
+
+  // Current user message
   if (imageUrl) {
 
     input.push({
@@ -77,7 +87,7 @@ async function getReply(userId, userMessage, imageUrl = null) {
 
   const reply = response.output_text;
 
-  // Save AI reply
+  // Save assistant reply
   memory.addAssistantMessage(userId, reply);
 
   return reply;
