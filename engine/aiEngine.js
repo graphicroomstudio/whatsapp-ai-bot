@@ -4,6 +4,9 @@ const { loadAllBrain } = require("./brainLoader");
 const buildPrompt = require("./promptBuilder");
 const memory = require("./memory");
 
+console.log("MEMORY EXPORT:", memory);
+console.log("TYPE:", typeof memory.addUserMessage);
+
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
