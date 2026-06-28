@@ -16,7 +16,15 @@ async function getReply(userId, userMessage) {
 
   const conversation = memory.getConversation(userId);
 
-  const messages = buildPrompt(brain, conversation);
+ const systemPrompt = buildPrompt(brain);
+
+const messages = [
+  {
+    role: "system",
+    content: systemPrompt
+  },
+  ...conversation
+];
 
 console.log(JSON.stringify(messages, null, 2));
 
