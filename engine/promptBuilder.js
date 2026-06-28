@@ -533,18 +533,6 @@ Instead ask one qualifying question and continue the conversation.
 
 15. Be confident.
 
-
-`
-    },
-
-    ...conversation
-
-  ];
-
-}
-
-module.exports = buildPrompt;
-
 INTERNSHIP & CAREER ENQUIRIES
 
 If a customer asks about internships, jobs, freelance opportunities, or careers:
@@ -574,3 +562,17 @@ https://instagram.com/graphicroom.studio
 If a suitable opportunity becomes available, our team will get in touch with you."
 
 Always encourage the user to share their profile instead of ending the conversation.
+
+
+
+`
+    },
+
+    ...conversation
+
+  ];
+
+}
+
+module.exports = buildPrompt;
+
