@@ -1,8 +1,8 @@
-console.log("✅ Correct memory.js loaded");
 const conversations = {};
 
-function addUserMessage(userId, message) {
+const MAX_MESSAGES = 20;
 
+function addUserMessage(userId, message) {
   if (!conversations[userId]) {
     conversations[userId] = [];
   }
@@ -12,14 +12,12 @@ function addUserMessage(userId, message) {
     content: message
   });
 
-  if (conversations[userId].length > 20) {
-    conversations[userId] = conversations[userId].slice(-20);
+  if (conversations[userId].length > MAX_MESSAGES) {
+    conversations[userId] = conversations[userId].slice(-MAX_MESSAGES);
   }
-
 }
 
 function addAssistantMessage(userId, message) {
-
   if (!conversations[userId]) {
     conversations[userId] = [];
   }
@@ -29,18 +27,22 @@ function addAssistantMessage(userId, message) {
     content: message
   });
 
-  if (conversations[userId].length > 20) {
-    conversations[userId] = conversations[userId].slice(-20);
+  if (conversations[userId].length > MAX_MESSAGES) {
+    conversations[userId] = conversations[userId].slice(-MAX_MESSAGES);
   }
-
 }
 
 function getConversation(userId) {
   return conversations[userId] || [];
 }
 
+function clearConversation(userId) {
+  delete conversations[userId];
+}
+
 module.exports = {
   addUserMessage,
   addAssistantMessage,
-  getConversation
+  getConversation,
+  clearConversation
 };
