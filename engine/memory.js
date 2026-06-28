@@ -1,3 +1,4 @@
+console.log("✅ Correct memory.js loaded");
 const conversations = {};
 
 function addUserMessage(userId, message) {
